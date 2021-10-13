@@ -1,0 +1,25 @@
+import WalletConnectProvider from "@walletconnect/web3-provider"
+import WalletLink from "walletlink"
+
+export default ({ $config }, inject) => {
+
+  const WalletConnectConnector = new WalletConnectProvider({
+    infuraId: $config.infuraId
+  })
+
+  const walletLink = new WalletLink({
+    appName: 'TBOT Project',
+    appLogoUrl: 'https://tbot-docs.us-east-1.linodeobjects.com/tbot.png',
+    darkMode: false
+  })
+
+  const walletLinkProvider = walletLink.makeWeb3Provider(
+    `https://mainnet.infura.io/v3/${$config.infuraId}`, 1
+  )
+
+  const ethereum = window.ethereum
+
+  inject('connector', WalletConnectConnector)
+  inject('walletlink', walletLinkProvider)
+  if (ethereum) inject('eth', ethereum)
+}
