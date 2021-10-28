@@ -13,12 +13,12 @@
     <template #end>
       <b-navbar-item tag="div">
         <div class="buttons">
-          <b-button type="is-ghost" v-if="parseInt(chainId) == 1">
+          <b-tag type="mb-2 mr-2 is-light" size="is-large" v-if="parseInt(chainId) == 1">
             <div class="is-flex is-align-items-center">
               <img src="~/assets/images/ethereum.png" width="21px" height="21px" alt="Ethereum">
               <strong v-if="$device.isDesktopOrTablet" class="has-text-dark">Ethereum</strong>
             </div>
-          </b-button>
+          </b-tag>
 
           <b-button type="is-secondary" v-if="mainAccount">
             <div class="is-flex is-align-items-center">
@@ -40,7 +40,7 @@
             :mobile-modal="false"
             append-to-body>
 
-            <template #trigger="{ active }">
+            <template #trigger="{ /*active*/ }">
                 <a
                   class="navbar-item"
                   role="button">
