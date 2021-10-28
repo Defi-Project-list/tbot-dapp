@@ -2,7 +2,8 @@
 @import "~bulma/sass/utilities/_all";
 
 // Set your colors
-$primary: #2e5ed4;
+// $primary: #2e5ed4;
+$primary: #545add;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
@@ -84,11 +85,9 @@ $navbar-breakpoint: 0px;
 // Import bulma styles
 @import "~bulma";
 
-// Dark mode
-@import "~bulma-prefers-dark/bulma-prefers-dark";
-
 // Import buefy styles
 @import "~buefy/src/scss/buefy";
 
+// @import "dark";
 
 @import "custom";

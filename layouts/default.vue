@@ -49,75 +49,75 @@ export default {
     console.log(this.$colorMode.value)
 
   },
-  // created() {
-  //   // Metamask
-  //   if(this.$eth){
-  //     this.$eth.on('accountsChanged', async (newAccounts)=>{
-  //       if(newAccounts[this.selectedAccount]!=this.accounts[this.selectedAccount]){
-  //         await this.$auth.logout()
-  //         this.$store.commit('localStorage/set',['accounts',newAccounts])
-  //       }
-  //     })
-  //     this.$eth.on('chainChanged', async (newChain)=>{
-  //         // await this.$auth.logout()
-  //         // this.$store.commit('localStorage/set',['accounts',[]])
-  //         this.$store.commit('localStorage/set',['chainId', newChain])
-  //     })
-  //   }
+  created() {
+    // Metamask
+    if(this.$eth){
+      this.$eth.on('accountsChanged', async (newAccounts)=>{
+        if(newAccounts[this.selectedAccount]!=this.accounts[this.selectedAccount]){
+          await this.$auth.logout()
+          this.$store.commit('localStorage/set',['accounts',newAccounts])
+        }
+      })
+      this.$eth.on('chainChanged', async (newChain)=>{
+          // await this.$auth.logout()
+          // this.$store.commit('localStorage/set',['accounts',[]])
+          this.$store.commit('localStorage/set',['chainId', newChain])
+      })
+    }
 
-  //   // WalletConnect
-  //   this.$connector.on('accountsChanged', async(accounts) => {
-  //     await this.$auth.logout()
-  //     this.$store.commit('localStorage/set',['accounts', accounts])
-  //   })
+    // WalletConnect
+    this.$connector.on('accountsChanged', async(accounts) => {
+      await this.$auth.logout()
+      this.$store.commit('localStorage/set',['accounts', accounts])
+    })
 
-  //   this.$connector.on('chainChanged', async (chainId) => {
-  //     // await this.$auth.logout()
-  //     // this.$store.commit('localStorage/set',['accounts',[]])
-  //     this.$store.commit('localStorage/set',['chainId', chainId])
-  //   })
+    this.$connector.on('chainChanged', async (chainId) => {
+      // await this.$auth.logout()
+      // this.$store.commit('localStorage/set',['accounts',[]])
+      this.$store.commit('localStorage/set',['chainId', chainId])
+    })
 
-  //   this.$connector.on('disconnect', async(code, reason) => {
-  //     await this.$auth.logout()
-  //     this.$store.commit('localStorage/set',['accounts',[]])
-  //     // this.$store.commit('localStorage/set',['chainId', null])
-  //     console.log(code, reason)
-  //   })
+    this.$connector.on('disconnect', async(code, reason) => {
+      await this.$auth.logout()
+      this.$store.commit('localStorage/set',['accounts',[]])
+      // this.$store.commit('localStorage/set',['chainId', null])
+      console.log(code, reason)
+    })
 
-  //   // Wallet Link
-  //   this.$walletlink.on('accountsChanged', async (accounts)=>{
-  //     await this.$auth.logout()
-  //     this.$store.commit('localStorage/set',['accounts',accounts])
-  //     // this.$store.commit('localStorage/set',['chainId', null])
-  //   })
+    // Wallet Link
+    this.$walletlink.on('accountsChanged', async (accounts)=>{
+      await this.$auth.logout()
+      this.$store.commit('localStorage/set',['accounts',accounts])
+      // this.$store.commit('localStorage/set',['chainId', null])
+    })
 
-  //   this.$connector.on('chainChanged', async (chainId) => {
-  //     // await this.$auth.logout()
-  //     // this.$store.commit('localStorage/set',['accounts',[]])
-  //     this.$store.commit('localStorage/set',['chainId', chainId])
-  //   })
+    this.$connector.on('chainChanged', async (chainId) => {
+      // await this.$auth.logout()
+      // this.$store.commit('localStorage/set',['accounts',[]])
+      this.$store.commit('localStorage/set',['chainId', chainId])
+    })
 
-  //   this.$walletlink.on('disconnect', async (code, reason) => {
-  //     await this.$auth.logout()
-  //     this.$store.commit('localStorage/set',['accounts',[]])
-  //     // this.$store.commit('localStorage/set',['chainId', null])
-  //     console.log(code, reason)
-  //   })
+    this.$walletlink.on('disconnect', async (code, reason) => {
+      await this.$auth.logout()
+      this.$store.commit('localStorage/set',['accounts',[]])
+      // this.$store.commit('localStorage/set',['chainId', null])
+      console.log(code, reason)
+    })
 
-  // },
-  // destroyed() {
-  //   if(this.$eth){
-  //     this.$eth.removeEventListener('accountsChanged')
-  //     this.$eth.removeEventListener('chainChanged')
-  //   }
-  //   this.$connector.removeEventListener('accountsChanged')
-  //   this.$connector.removeEventListener('chainChanged')
-  //   this.$connector.removeEventListener('disconnect')
+  },
+  destroyed() {
+    if(this.$eth){
+      this.$eth.removeEventListener('accountsChanged')
+      this.$eth.removeEventListener('chainChanged')
+    }
+    this.$connector.removeEventListener('accountsChanged')
+    this.$connector.removeEventListener('chainChanged')
+    this.$connector.removeEventListener('disconnect')
 
-  //   this.$walletlink.removeEventListener('accountsChanged')
-  //   this.$walletlink.removeEventListener('chainChanged')
-  //   this.$walletlink.removeEventListener('disconnect')
-  // }
+    this.$walletlink.removeEventListener('accountsChanged')
+    this.$walletlink.removeEventListener('chainChanged')
+    this.$walletlink.removeEventListener('disconnect')
+  }
 }
 </script>
 

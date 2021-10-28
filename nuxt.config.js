@@ -151,9 +151,9 @@ export default {
     idoContract: process.env.IDO_CONTRACT,
     tbotContract: process.env.TBOT_CONTRACT,
     votingContract: process.env.VOTING_CONTRACT,
-    redeemContract: process.env.REDEEM_CONTRACT,
-    baseUrl: process.env.BASE_URL,
     apiUrl: process.env.API_SERVER,
+    gerContract: process.env.GER_CONTRACT,
+    stakingContract: process.env.STAKING_CONTRACT
     // googleAnalytics: {
     //   id: process.env.GOOGLE_ANALYTICS_ID
     // }
