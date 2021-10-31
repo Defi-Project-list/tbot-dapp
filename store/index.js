@@ -112,5 +112,16 @@ export const actions = {
       commit('set',['rewards',constants.Zero])
       commit('set',['claimed',constants.Zero])
     }
+  },
+  clearStakingData({commit}){
+    commit('set',['apy','-'])
+    commit('set',['staked',constants.Zero])
+    commit('set',['unstaked',constants.Zero])
+    commit('set',['rewards',constants.Zero])
+    commit('set',['claimed',constants.Zero])
+  },
+  clearBalance({commit}){
+    commit('set',['balance',constants.Zero])
+    commit('set',['allowance',constants.Zero])
   }
 }

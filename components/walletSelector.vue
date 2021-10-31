@@ -126,9 +126,10 @@
             return
           }
 
-          this.isConnecting = false
-
           this.$store.commit('localStorage/set', ['walletVersion', 'metamask'])
+          this.$store.dispatch('checkBalance', this.mainAccount)
+          this.$store.dispatch('getStakingData', this.mainAccount)
+          this.isConnecting = false
           this.$emit('close')
 
         } else {
@@ -168,7 +169,8 @@
         }
 
         this.$store.commit('localStorage/set', ['walletVersion', 'walletConnect'])
-
+        this.$store.dispatch('checkBalance', this.mainAccount)
+        this.$store.dispatch('getStakingData', this.mainAccount)
         this.isConnecting = false
         this.$emit('close')
 
@@ -194,9 +196,10 @@
           return
         }
 
-        this.isConnecting = false
-
         this.$store.commit('localStorage/set', ['walletVersion', 'walletLink'])
+        this.$store.dispatch('checkBalance', this.mainAccount)
+        this.$store.dispatch('getStakingData', this.mainAccount)
+        this.isConnecting = false
         this.$emit('close')
 
       },
@@ -218,7 +221,8 @@
       ...mapState({
         accounts: state => state.localStorage.accounts,
         selectedAccount: state => state.localStorage.selectedAccount,
-        availableChains: 'availableChains'
+        availableChains: 'availableChains',
+        mainAccount: state => state.localStorage.accounts[state.localStorage.selectedAccount]
       }),
       hasMetamask() {
         if (this.$eth) {

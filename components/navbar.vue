@@ -257,8 +257,8 @@
           await this.$connector.disconnect()
         }
         this.$store.commit('localStorage/set', ['walletVersion', null])
-        this.$store.dispatch('checkBalance', this.mainAccount)
-        this.$store.dispatch('getStakingData', this.mainAccount)
+        this.$store.dispatch('clearBalance')
+        this.$store.dispatch('clearStakingData')
         this.loading = false
       }
     },

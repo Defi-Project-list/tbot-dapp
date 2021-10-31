@@ -70,12 +70,13 @@ export default {
       })
 
       this.$eth.on('disconnect', async (err)=>{
-          // await this.$auth.logout()
-          // this.$store.commit('localStorage/set',['accounts',[]])
-          console.log(err)
-          this.$store.commit('localStorage/set', ['walletVersion', null])
-          this.$store.dispatch('checkBalance', this.mainAccount)
-          this.$store.dispatch('getStakingData', this.mainAccount)
+        // await this.$auth.logout()
+        // this.$store.commit('localStorage/set',['accounts',[]])
+        console.log(err)
+        this.$store.commit('localStorage/set',['accounts',[]])
+        this.$store.commit('localStorage/set', ['walletVersion', null])
+        this.$store.dispatch('clearBalance')
+        this.$store.dispatch('clearStakingData')
       })
     }
 
@@ -98,10 +99,9 @@ export default {
     this.$connector.on('disconnect', async(code, reason) => {
       // await this.$auth.logout()
       this.$store.commit('localStorage/set',['accounts',[]])
-      // this.$store.commit('localStorage/set',['chainId', null])
-      this.$store.dispatch('checkBalance', this.mainAccount)
-      this.$store.dispatch('getStakingData', this.mainAccount)
       this.$store.commit('localStorage/set', ['walletVersion', null])
+      this.$store.dispatch('clearBalance')
+      this.$store.dispatch('clearStakingData')
       console.log(code, reason)
     })
 
@@ -125,10 +125,9 @@ export default {
     this.$walletlink.on('disconnect', async (code, reason) => {
       // await this.$auth.logout()
       this.$store.commit('localStorage/set',['accounts',[]])
-      // this.$store.commit('localStorage/set',['chainId', null])
-      this.$store.dispatch('checkBalance', this.mainAccount)
-      this.$store.dispatch('getStakingData', this.mainAccount)
       this.$store.commit('localStorage/set', ['walletVersion', null])
+      this.$store.dispatch('clearBalance')
+      this.$store.dispatch('clearStakingData')
       console.log(code, reason)
     })
 
