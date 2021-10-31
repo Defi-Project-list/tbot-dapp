@@ -169,6 +169,4 @@ export default {
     publicPath: '/_tbot/'
   },
 
-  globalName: '__tbot'
-
 }

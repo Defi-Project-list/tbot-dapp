@@ -70,7 +70,7 @@
               </nuxt-link>
             </b-dropdown-item>
 
-            <b-dropdown-item  @click="logout">
+            <b-dropdown-item >
               <div class="is-flex is-align-items-center is-justify-content-space-between">
                 <span>
                   Settings
@@ -251,11 +251,12 @@
       },
       async logout() {
         this.loading = true
-        await this.$auth.logout()
+        // await this.$auth.logout()
         this.$store.commit('localStorage/set', ['accounts', []])
         if (this.$store.state.localStorage.walletVersion == 'walletConnect' || this.$store.state.localStorage.walletVersion == 'walletLink') {
           await this.$connector.disconnect()
         }
+        this.$store.commit('localStorage/set', ['walletVersion', null])
         this.loading = false
       }
     },
