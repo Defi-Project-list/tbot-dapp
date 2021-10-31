@@ -89,7 +89,7 @@ export default {
     '@nuxtjs/axios',
     'nuxt-vuex-localstorage',
     '@nuxtjs/auth-next',
-    '@nuxtjs/sitemap'
+    // '@nuxtjs/sitemap'
   ],
 
   buefy: {
