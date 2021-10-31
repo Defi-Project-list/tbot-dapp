@@ -76,6 +76,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    // '@nuxtjs/color-mode',
     '@nuxtjs/device',
     // '@nuxtjs/google-analytics'
   ],
@@ -88,8 +89,7 @@ export default {
     '@nuxtjs/axios',
     'nuxt-vuex-localstorage',
     '@nuxtjs/auth-next',
-    // '@nuxtjs/sitemap',
-    '@nuxtjs/color-mode'
+    // '@nuxtjs/sitemap'
   ],
 
   // sitemap: {

@@ -122,11 +122,11 @@
     },
     methods: {
       toggleDarkMode(){
-        if(this.$colorMode.value == 'light'){
-          this.$colorMode.value = 'dark'
-        }else{
-          this.$colorMode.value = 'light'
-        }
+        // if(this.$colorMode.value == 'light'){
+        //   this.$colorMode.value = 'dark'
+        // }else{
+        //   this.$colorMode.value = 'light'
+        // }
       },
       async connectWallet() {
         // Open wallet selector
