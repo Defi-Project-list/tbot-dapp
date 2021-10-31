@@ -53,7 +53,10 @@ export const actions = {
       provider = new providers.Web3Provider(this.$connector)
     }else if (state.localStorage.walletVersion == 'walletLink'){
       provider = new providers.Web3Provider(this.$walletlink)
+    }else{
+      provider = null
     }
+
     if(provider && wallet){
       const token = this.$config.gerContract
       const staking = this.$config.stakingContract
@@ -82,6 +85,8 @@ export const actions = {
       provider = new providers.Web3Provider(this.$connector)
     }else if (state.localStorage.walletVersion == 'walletLink'){
       provider = new providers.Web3Provider(this.$walletlink)
+    }else{
+      provider = null
     }
 
     if(provider && wallet){

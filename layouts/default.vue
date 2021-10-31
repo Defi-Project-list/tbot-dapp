@@ -23,6 +23,7 @@ export default {
       accounts:state => state.localStorage.accounts,
       selectedAccount:state => state.localStorage.selectedAccount,
       chainId: state => state.localStorage.chainId,
+      mainAccount: state => state.localStorage.accounts[state.localStorage.selectedAccount],
       availableChains:'availableChains'})
   },
   methods:{
@@ -53,40 +54,53 @@ export default {
     if(this.$eth){
       this.$eth.on('accountsChanged', async (newAccounts)=>{
         if(newAccounts[this.selectedAccount]!=this.accounts[this.selectedAccount]){
-          await this.$auth.logout()
+          // await this.$auth.logout()
           this.$store.commit('localStorage/set',['accounts',newAccounts])
+          this.$store.dispatch('checkBalance', this.mainAccount)
+          this.$store.dispatch('getStakingData', this.mainAccount)
         }
       })
       this.$eth.on('chainChanged', async (newChain)=>{
           // await this.$auth.logout()
           // this.$store.commit('localStorage/set',['accounts',[]])
           this.$store.commit('localStorage/set',['chainId', newChain])
+          this.$store.dispatch('checkBalance', this.mainAccount)
+          this.$store.dispatch('getStakingData', this.mainAccount)
       })
     }
 
     // WalletConnect
     this.$connector.on('accountsChanged', async(accounts) => {
-      await this.$auth.logout()
+      // await this.$auth.logout()
       this.$store.commit('localStorage/set',['accounts', accounts])
+      this.$store.dispatch('checkBalance', this.mainAccount)
+      this.$store.dispatch('getStakingData', this.mainAccount)
     })
 
     this.$connector.on('chainChanged', async (chainId) => {
       // await this.$auth.logout()
       // this.$store.commit('localStorage/set',['accounts',[]])
       this.$store.commit('localStorage/set',['chainId', chainId])
+      this.$store.dispatch('checkBalance', this.mainAccount)
+      this.$store.dispatch('getStakingData', this.mainAccount)
     })
 
     this.$connector.on('disconnect', async(code, reason) => {
       await this.$auth.logout()
       this.$store.commit('localStorage/set',['accounts',[]])
       // this.$store.commit('localStorage/set',['chainId', null])
+      this.$store.dispatch('checkBalance', this.mainAccount)
+      this.$store.dispatch('getStakingData', this.mainAccount)
+      this.$store.commit('localStorage/set', ['walletVersion', null])
       console.log(code, reason)
     })
 
     // Wallet Link
     this.$walletlink.on('accountsChanged', async (accounts)=>{
-      await this.$auth.logout()
+      // await this.$auth.logout()
       this.$store.commit('localStorage/set',['accounts',accounts])
+      this.$store.dispatch('checkBalance', this.mainAccount)
+      this.$store.dispatch('getStakingData', this.mainAccount)
       // this.$store.commit('localStorage/set',['chainId', null])
     })
 
@@ -94,12 +108,17 @@ export default {
       // await this.$auth.logout()
       // this.$store.commit('localStorage/set',['accounts',[]])
       this.$store.commit('localStorage/set',['chainId', chainId])
+      this.$store.dispatch('checkBalance', this.mainAccount)
+      this.$store.dispatch('getStakingData', this.mainAccount)
     })
 
     this.$walletlink.on('disconnect', async (code, reason) => {
-      await this.$auth.logout()
+      // await this.$auth.logout()
       this.$store.commit('localStorage/set',['accounts',[]])
       // this.$store.commit('localStorage/set',['chainId', null])
+      this.$store.dispatch('checkBalance', this.mainAccount)
+      this.$store.dispatch('getStakingData', this.mainAccount)
+      this.$store.commit('localStorage/set', ['walletVersion', null])
       console.log(code, reason)
     })
 
