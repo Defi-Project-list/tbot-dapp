@@ -1,14 +1,14 @@
-import {utils, Contract, providers} from 'ethers'
+import {utils, Contract, providers, constants} from 'ethers'
 
 export const state = () => ({
   hasWallet:false,
-  balance:'-',
-  staked: '-',
-  unstaked:'-',
-  rewards: '-',
-  claimed:'-',
+  balance:constants.Zero,
+  staked: constants.Zero,
+  unstaked: constants.Zero,
+  rewards: constants.Zero,
+  claimed: constants.Zero,
   apy: '-',
-  allowance:'0',
+  allowance: constants.Zero,
   availableChains: [{
       hex: '0x1',
       decimal: 1,
@@ -62,16 +62,16 @@ export const actions = {
 
       try {
         const amount = await tokenContract.balanceOf(wallet)
-        commit('set',['balance', parseFloat(utils.formatEther(amount)).toFixed(4)])
+        commit('set',['balance', amount])
         const allowance = await tokenContract.allowance(wallet, staking)
-        commit('set',['allowance', utils.formatEther(allowance)])
+        commit('set',['allowance', allowance])
 
       } catch (error) {
         console.log(error)
       }
     }else{
-      commit('set',['balance','-'])
-      commit('set',['allowance','0'])
+      commit('set',['balance',constants.Zero])
+      commit('set',['allowance',constants.Zero])
     }
   },
   async getStakingData({commit, state}, wallet){
@@ -91,21 +91,21 @@ export const actions = {
 
       try {
         const amount = await stakingContract.totalRewards(wallet)
-        commit('set',['rewards', parseFloat(utils.formatEther(amount)).toFixed(4)])
+        commit('set',['rewards', amount])
         const apy = await stakingContract.apy()
         commit('set',['apy', (parseFloat(utils.formatEther(apy))*100).toFixed(2)])
         const claimed = await stakingContract.rewardsPaid(wallet)
-        commit('set',['claimed', parseFloat(utils.formatEther(claimed)).toFixed(8)])
+        commit('set',['claimed', claimed])
 
       } catch (error) {
         console.log(error)
       }
     }else{
       commit('set',['apy','-'])
-      commit('set',['staked','-'])
-      commit('set',['unstaked','-'])
-      commit('set',['rewards','-'])
-      commit('set',['claimed','-'])
+      commit('set',['staked',constants.Zero])
+      commit('set',['unstaked',constants.Zero])
+      commit('set',['rewards',constants.Zero])
+      commit('set',['claimed',constants.Zero])
     }
   }
 }

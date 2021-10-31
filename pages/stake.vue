@@ -30,7 +30,7 @@
             <div class="subtitle is-flex">
               <img src="~/assets/images/tbot-token.png" width="24px" height="24px" alt="Balance">
               <p class="ml-2">
-                {{balance}}
+                {{ parseFloat(utils.formatEther(balance)).toLocaleString('en-US', {minimumFractionDigits: 5}) }}
               </p>
             </div>
           </div>
@@ -41,7 +41,7 @@
             <div class="subtitle is-flex">
               <img src="~/assets/images/tbot-token.png" width="24px" height="24px" alt="Staked">
               <p class="ml-2">
-                {{staked}}
+                {{ parseFloat(utils.formatEther(staked)).toLocaleString('en-US', {minimumFractionDigits: 5}) }}
               </p>
             </div>
           </div>
@@ -52,7 +52,7 @@
             <div class="subtitle is-flex">
               <img src="~/assets/images/tbot-token.png" width="24px" height="24px" alt="Rewards">
               <p class="ml-2">
-                {{claimed}}
+                {{ parseFloat(utils.formatEther(claimed)).toLocaleString('en-US', {minimumFractionDigits: 5}) }}
               </p>
             </div>
           </div>
@@ -66,7 +66,7 @@
           </b-tab-item>
 
           <b-tab-item label="Unstake">
-            <stakeUnstakeTab/>
+            <stakeUnstakeTab :staked="staked"/>
           </b-tab-item>
 
           <b-tab-item label="Rewards">
@@ -81,11 +81,13 @@
 
 <script>
   import { mapState } from 'vuex'
+  import { utils } from 'ethers'
 
   export default {
     data(){
       return {
         provider:null,
+        utils
       }
     },
     computed:{
