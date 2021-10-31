@@ -76,7 +76,6 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/color-mode',
     '@nuxtjs/device',
     // '@nuxtjs/google-analytics'
   ],
@@ -89,8 +88,13 @@ export default {
     '@nuxtjs/axios',
     'nuxt-vuex-localstorage',
     '@nuxtjs/auth-next',
-    // '@nuxtjs/sitemap'
+    // '@nuxtjs/sitemap',
+    '@nuxtjs/color-mode'
   ],
+
+  // sitemap: {
+  //   hostname: process.env.SITEMAP_HOSTNAME,
+  // },
 
   buefy: {
     css: false,
@@ -163,5 +167,8 @@ export default {
   build: {
     extend(config, ctx) {},
     // publicPath: '/_tbot/'
-  }
+  },
+
+  globalName: 'tbot'
+
 }
