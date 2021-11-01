@@ -13,7 +13,7 @@
           @keypress.native="isNumber"
         />
         <p class="control">
-          <b-button type="is-primary" label="MAX" @click="setMax"/>
+          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading"/>
         </p>
 
       </b-field>
@@ -83,12 +83,6 @@
         const signer = provider.getSigner()
         const contract = new Contract(this.$config.stakingContract, abi, signer)
 
-        const gasPrice = await provider.getGasPrice()
-        // const nonce = await provider.getTransactionCount(this.mainAccount, 'latest')
-
-        const gasLimit = await contract.estimateGas.stake(utils.parseEther(this.amount), {gasPrice})
-        console.log(gasLimit.toString())
-
         const signedTransaction = await contract.stake(utils.parseEther(this.amount)).catch(err=>{
           console.log(err)
 
@@ -118,7 +112,10 @@
           })
 
 
-          const txReceipt = await signedTransaction.wait()
+          const txReceipt = await signedTransaction.wait().catch(err=>{
+            console.log(err)
+            this.loading = false
+          })
           progressMessage.close()
 
           console.log(txReceipt)
@@ -163,7 +160,7 @@
         let keyCode = (e.keyCode ? e.keyCode : e.which)
 
         // only allow number and one dot
-        if ((keyCode < 48 || keyCode > 57) && (keyCode !== 46 || this.showAmount.indexOf('.') != -1)) { // 46 is dot
+        if ((keyCode < 48 || keyCode > 57) && (keyCode !== 46 || this.amount.indexOf('.') != -1)) { // 46 is dot
           e.preventDefault()
         }
 
