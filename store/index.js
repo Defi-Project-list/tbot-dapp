@@ -7,7 +7,9 @@ export const state = () => ({
   unstaked: constants.Zero,
   rewards: constants.Zero,
   claimed: constants.Zero,
+  timeToUnlock: constants.Zero,
   apy: '-',
+  time: '-',
   allowance: constants.Zero,
   availableChains: [{
       hex: '0x1',
@@ -99,26 +101,36 @@ export const actions = {
         commit('set',['rewards', amount])
         const apy = await stakingContract.apy()
         commit('set',['apy', (parseFloat(utils.formatEther(apy))*100).toFixed(2)])
+        const timeLock = await stakingContract.timeLock()
+        commit('set',['time', parseInt(timeLock.toString())/86400])
         const claimed = await stakingContract.rewardsPaid(wallet)
         commit('set',['claimed', claimed])
+        const myBalance = await stakingContract.balances(wallet)
+        commit('set',['staked', myBalance])
+        const timeToUnlock = await stakingContract.timeToUnlock(wallet)
+        commit('set',['timeToUnlock', timeToUnlock])
 
       } catch (error) {
         console.log(error)
       }
     }else{
       commit('set',['apy','-'])
+      commit('set',['time','-'])
       commit('set',['staked',constants.Zero])
       commit('set',['unstaked',constants.Zero])
       commit('set',['rewards',constants.Zero])
       commit('set',['claimed',constants.Zero])
+      commit('set',['timeToUnlock', constants.Zero])
     }
   },
   clearStakingData({commit}){
     commit('set',['apy','-'])
+    commit('set',['time','-'])
     commit('set',['staked',constants.Zero])
     commit('set',['unstaked',constants.Zero])
     commit('set',['rewards',constants.Zero])
     commit('set',['claimed',constants.Zero])
+    commit('set',['timeToUnlock', constants.Zero])
   },
   clearBalance({commit}){
     commit('set',['balance',constants.Zero])

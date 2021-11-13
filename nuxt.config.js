@@ -30,7 +30,7 @@ export default {
     {
       hid: 'og:title',
       property: 'og:title',
-      content: 'TBOT Army'
+      content: 'TBOT Project'
     },
     {
       hid: 'og:description',

@@ -22,6 +22,14 @@
             </div>
           </div>
         </div>
+        <div class="column is-one-quarter">
+          <div class="message is-info">
+            <div class="message-body">
+              <p class="title is-5">{{time}} Days</p>
+              <p class="subtitle is-6">Timelock</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="columns">
         <div class="column">
@@ -91,7 +99,7 @@
       }
     },
     computed:{
-      ...mapState(['balance', 'staked', 'unstaked', 'rewards', 'claimed', 'apy','allowance']),
+      ...mapState(['balance', 'staked', 'unstaked', 'rewards', 'claimed', 'apy', 'allowance', 'time']),
       ...mapState({
         mainAccount: state => state.localStorage.accounts[state.localStorage.selectedAccount],
         chainId: state => state.localStorage.chainId
@@ -100,10 +108,17 @@
     methods:{
 
     },
+    mounted(){
+      setInterval(async () => {
+        if(this.mainAccount){
+          await this.$store.dispatch('getStakingData', this.mainAccount)
+        }
+      }, 15000);
+    },
     async fetch(){
       await this.$store.dispatch('checkBalance', this.mainAccount)
       await this.$store.dispatch('getStakingData', this.mainAccount)
-      console.log(this.allowance)
+      console.log('Allowance ',this.allowance.toString())
     }
   }
 

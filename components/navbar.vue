@@ -2,7 +2,7 @@
   <b-navbar wrapper-class="container" :mobile-burger="false" centered>
     <template #brand>
       <b-navbar-item tag="nuxt-link" :to="{ path: '/' }" :class="{'ml-3':$device.isMobileOrTablet}">
-        <img src="~/assets/images/tbot.png" alt="Tbot Army">
+        <img src="~/assets/images/tbot.png" alt="Tbot Project">
       </b-navbar-item>
     </template>
 
@@ -49,17 +49,17 @@
             </template>
 
             <b-dropdown-item has-link>
-              <nuxt-link to="/my-account">
+              <a href="https://tbot.fi" target="_blank">
               <div class="is-flex is-align-items-center is-justify-content-space-between">
                 <span>
                   About
                 </span>
                 <b-icon icon="information-outline" size="is-small"></b-icon>
               </div>
-              </nuxt-link>
+              </a>
             </b-dropdown-item>
 
-            <b-dropdown-item has-link>
+            <!-- <b-dropdown-item has-link>
               <nuxt-link to="/my-account">
               <div class="is-flex is-align-items-center is-justify-content-space-between">
                 <span>
@@ -68,25 +68,25 @@
                 <b-icon icon="bell" size="is-small"></b-icon>
               </div>
               </nuxt-link>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
 
-            <b-dropdown-item >
+            <!-- <b-dropdown-item >
               <div class="is-flex is-align-items-center is-justify-content-space-between">
                 <span>
                   Settings
                 </span>
                 <b-icon icon="cog-outline" size="is-small"></b-icon>
               </div>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
 
-            <b-dropdown-item  @click="toggleDarkMode">
+            <!-- <b-dropdown-item  @click="toggleDarkMode">
               <div class="is-flex is-align-items-center is-justify-content-space-between">
                 <span>
                   Dark Theme
                 </span>
                 <b-icon icon="brightness-4" size="is-small"></b-icon>
               </div>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
 
             <b-dropdown-item  @click="logout" v-if="mainAccount">
               <div class="is-flex is-align-items-center is-justify-content-space-between">

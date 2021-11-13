@@ -55,6 +55,9 @@ export default {
       this.$eth.on('accountsChanged', async (newAccounts)=>{
         if(newAccounts[this.selectedAccount]!=this.accounts[this.selectedAccount]){
           // await this.$auth.logout()
+          if(!newAccounts.length){
+            this.$store.commit('localStorage/set', ['walletVersion', null])
+          }
           this.$store.commit('localStorage/set',['accounts',newAccounts])
           this.$store.dispatch('checkBalance', this.mainAccount)
           this.$store.dispatch('getStakingData', this.mainAccount)
@@ -83,6 +86,9 @@ export default {
     // WalletConnect
     this.$connector.on('accountsChanged', async(accounts) => {
       // await this.$auth.logout()
+      if(!accounts.length){
+        this.$store.commit('localStorage/set', ['walletVersion', null])
+      }
       this.$store.commit('localStorage/set',['accounts', accounts])
       this.$store.dispatch('checkBalance', this.mainAccount)
       this.$store.dispatch('getStakingData', this.mainAccount)
@@ -108,6 +114,9 @@ export default {
     // Wallet Link
     this.$walletlink.on('accountsChanged', async (accounts)=>{
       // await this.$auth.logout()
+      if(!accounts.length){
+        this.$store.commit('localStorage/set', ['walletVersion', null])
+      }
       this.$store.commit('localStorage/set',['accounts',accounts])
       this.$store.dispatch('checkBalance', this.mainAccount)
       this.$store.dispatch('getStakingData', this.mainAccount)
@@ -136,6 +145,7 @@ export default {
     if(this.$eth){
       this.$eth.removeEventListener('accountsChanged')
       this.$eth.removeEventListener('chainChanged')
+      this.$eth.removeEventListener('disconnect')
     }
     this.$connector.removeEventListener('accountsChanged')
     this.$connector.removeEventListener('chainChanged')

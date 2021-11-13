@@ -9,11 +9,11 @@
           type="text"
           v-model="amount"
           expanded
-          :disabled="loading || allowance==constants.Zero || !walletVersion"
+          :disabled="loading || allowance.isZero() || !walletVersion"
           @keypress.native="isNumber"
         />
         <p class="control">
-          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading"/>
+          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading || allowance.isZero() || !walletVersion"/>
         </p>
 
       </b-field>
@@ -21,9 +21,9 @@
     </form>
 
     <div class="is-flex is-justify-content-center px-6 mt-5">
-      <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion">
+      <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion || !mainAccount">
       Connect Wallet</b-button>
-      <b-button class="mx-6" type="is-success" size="is-medium" expanded @click="approve()" v-else-if="allowance==constants.Zero" :loading="loading">
+      <b-button class="mx-6" type="is-success" size="is-medium" expanded @click="approve()" v-else-if="allowance.isZero()" :loading="loading">
       Approve</b-button>
       <b-button class="mx-6" type="is-success" size="is-medium" expanded @click="stake()" :disabled="!hasBalance || amount == ''" v-else :loading="loading">
         <span v-if="amount == ''" >Enter an amount</span>
@@ -66,6 +66,83 @@
       }
     },
     methods:{
+      async approve(){
+        this.loading = true
+
+        let provider
+        if (this.walletVersion == 'metamask') {
+          provider = new providers.Web3Provider(this.$eth)
+        } else if (this.walletVersion == 'walletConnect') {
+          provider = new providers.Web3Provider(this.$connector)
+        }else if (this.walletVersion == 'walletLink'){
+          provider = new providers.Web3Provider(this.$walletlink)
+        }
+
+        const abi = require('~/assets/data/abi/IERC20.json')
+
+        const signer = provider.getSigner()
+        const contract = new Contract(this.$config.gerContract, abi, signer)
+
+        const signedTransaction = await contract.approve(this.$config.stakingContract, utils.parseEther('1000000')).catch(err=>{
+          console.log(err)
+
+          // this.$buefy.snackbar.open({
+          //     message: 'Error Message: '+ err.error.message + '<br> Refresh your browser.',
+          //     type: 'is-warning',
+          //     position: 'is-top',
+          //     indefinite: true,
+          //     queue:false
+          // })
+
+          this.loading = false
+        })
+
+        if(signedTransaction){
+          console.log("TX: ",signedTransaction)
+
+          const progressMessage = this.$buefy.snackbar.open({
+              message: `
+              <div class="is-flex is-align-content-center">
+              <div class="lds-ring mr-2"><div></div><div></div><div></div><div></div></div> Pending Transaction.
+              <a class="has-text-white ml-1" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a></div>`,
+              position: 'is-top',
+              actionText:null,
+              indefinite: true,
+              queue:false
+          })
+
+
+          const txReceipt = await signedTransaction.wait().catch(err=>{
+            console.log(err)
+            this.loading = false
+          })
+          progressMessage.close()
+
+          console.log(txReceipt)
+
+          if(txReceipt.status == 1){
+            this.$buefy.toast.open({
+                message: `Transaction Success! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
+                type: 'is-success',
+                duration: 5000
+            })
+          }else{
+            this.$buefy.toast.open({
+                message: `Transaction Error! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
+                type: 'is-danger',
+                duration: 5000
+            })
+          }
+        }
+
+        // Update Balance and staking information
+        await this.$store.dispatch('checkBalance', this.mainAccount)
+        await this.$store.dispatch('getStakingData', this.mainAccount)
+
+        this.amount = ''
+        this.loading = false
+
+      },
       async stake(){
         this.loading = true
 

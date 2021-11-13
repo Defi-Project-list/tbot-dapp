@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title is-5">Unstake</p>
+    <p class="title is-5">Unstake TBOT</p>
     <form>
 
       <b-field>
@@ -15,7 +15,7 @@
            />
 
         <p class="control">
-          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading" />
+          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading || !walletVersion" />
         </p>
 
       </b-field>
@@ -23,7 +23,9 @@
     </form>
 
     <div class="is-flex is-justify-content-center px-6 mt-5">
-      <b-button v-if="staked == constants.Zero" class="mx-6" type="is-success" size="is-medium" @click="unStake" :loading="loading" expanded>
+      <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion">
+      Connect Wallet</b-button>
+      <b-button v-else-if="!staked.isZero()" class="mx-6" type="is-success" size="is-medium" @click="unStake" :loading="loading" expanded>
         Unstake</b-button>
         <b-button v-else class="mx-6" type="is-success" size="is-medium" disabled expanded>
         Nothing to unstake</b-button>
@@ -33,6 +35,7 @@
 
 <script>
   import { mapState } from 'vuex'
+  import walletSelector from '../walletSelector.vue'
   import {constants, providers, utils, Contract} from 'ethers'
 
   export default {
@@ -136,7 +139,19 @@
       setMax(){
         //set max balance
         this.amountToUnstake = utils.formatEther(this.staked)
-      }
+      },
+      async connectWallet() {
+        // Open wallet selector
+        this.$buefy.modal.open({
+          parent: this,
+          component: walletSelector,
+          hasModalCard: true,
+          customClass: '',
+          trapFocus: true,
+          canCancel: ['escape', 'outside']
+        })
+
+      },
     },
     computed:{
       ...mapState({
