@@ -104,7 +104,7 @@
 
           console.log(txReceipt)
 
-          if(txReceipt.status == 1){
+          if(txReceipt){
             this.$buefy.toast.open({
                 message: `Transaction Success! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
                 type: 'is-success',
