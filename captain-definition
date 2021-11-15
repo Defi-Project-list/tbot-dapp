@@ -4,6 +4,7 @@
     "FROM node:14",
     "WORKDIR /usr/src/app",
     "COPY . /usr/src/app",
+    "RUN rm /usr/src/app/package-lock.json",
     "RUN npm install",
     "EXPOSE 80",
     "ENV HOST 0.0.0.0",
