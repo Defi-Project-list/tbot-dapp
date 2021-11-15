@@ -21,7 +21,7 @@ export default {
     {
       hid: 'description',
       name: 'description',
-      content: 'TBOT is a DeFi ERC20 utility token that facilitates wealth redistribution and rewards that are available for swap with ETH on Uniswap V3.'
+      content: "The TBOT Project's vision is wealth redistribution through Decentralized Finance (DeFi) by giving power to the people for full autonomy of their assets."
     },
     {
       name: 'format-detection',
@@ -35,7 +35,7 @@ export default {
     {
       hid: 'og:description',
       property: 'og:description',
-      content: 'TBOT is a DeFi ERC20 utility token that facilitates wealth redistribution and rewards that are available for swap with ETH on Uniswap V3.'
+      content: "The TBOT Project's vision is wealth redistribution through Decentralized Finance (DeFi) by giving power to the people for full autonomy of their assets."
     },
     {
       hid: 'og:image',
@@ -78,7 +78,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/device',
-    // '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -159,10 +159,10 @@ export default {
     apiUrl: process.env.API_SERVER,
     gerContract: process.env.GER_CONTRACT,
     stakingContract: process.env.STAKING_CONTRACT,
-    tbotContent:process.env.TBOT_CONTENT
-    // googleAnalytics: {
-    //   id: process.env.GOOGLE_ANALYTICS_ID
-    // }
+    tbotContent:process.env.TBOT_CONTENT,
+    googleAnalytics: {
+      id: process.env.GOOGLE_ANALYTICS_ID
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
