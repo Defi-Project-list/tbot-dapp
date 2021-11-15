@@ -157,7 +157,6 @@ export default {
     tbotContract: process.env.TBOT_CONTRACT,
     votingContract: process.env.VOTING_CONTRACT,
     apiUrl: process.env.API_SERVER,
-    gerContract: process.env.GER_CONTRACT,
     stakingContract: process.env.STAKING_CONTRACT,
     tbotContent:process.env.TBOT_CONTENT,
     googleAnalytics: {
