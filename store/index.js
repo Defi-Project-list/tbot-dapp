@@ -60,7 +60,7 @@ export const actions = {
     }
 
     if(provider && wallet){
-      const token = this.$config.gerContract
+      const token = this.$config.tbotContract
       const staking = this.$config.stakingContract
       const tokenAbi = require('../assets/data/abi/IERC20.json')
       const tokenContract = new Contract(token, tokenAbi, provider)

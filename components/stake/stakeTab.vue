@@ -95,7 +95,7 @@
         const abi = require('~/assets/data/abi/IERC20.json')
 
         const signer = provider.getSigner()
-        const contract = new Contract(this.$config.gerContract, abi, signer)
+        const contract = new Contract(this.$config.tbotContract, abi, signer)
 
         const signedTransaction = await contract.approve(this.$config.stakingContract, utils.parseEther('1000000')).catch(err=>{
           console.log(err)
