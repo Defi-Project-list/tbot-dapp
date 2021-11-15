@@ -47,7 +47,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async checkBalance({commit,state}, wallet){
+  async checkBalance({commit,state, dispatch}, wallet){
     let provider
     if (state.localStorage.walletVersion == 'metamask') {
       provider = new providers.Web3Provider(this.$eth)
@@ -73,13 +73,14 @@ export const actions = {
 
       } catch (error) {
         console.log(error)
+        dispatch('clearBalance')
       }
     }else{
       commit('set',['balance',constants.Zero])
       commit('set',['allowance',constants.Zero])
     }
   },
-  async getStakingData({commit, state}, wallet){
+  async getStakingData({commit, state, dispatch}, wallet){
     let provider
     if (state.localStorage.walletVersion == 'metamask') {
       provider = new providers.Web3Provider(this.$eth)
@@ -109,9 +110,9 @@ export const actions = {
         commit('set',['staked', myBalance])
         const timeToUnlock = await stakingContract.timeToUnlock(wallet)
         commit('set',['timeToUnlock', timeToUnlock])
-
       } catch (error) {
         console.log(error)
+        dispatch('clearStakingData')
       }
     }else{
       commit('set',['apy','-'])

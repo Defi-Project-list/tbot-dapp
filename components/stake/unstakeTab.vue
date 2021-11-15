@@ -1,6 +1,23 @@
 <template>
   <div>
     <p class="title is-5">Unstake TBOT</p>
+
+    <div class="message is-warning" v-if="!staked.isZero() && !time.isZero()">
+      <div class="message-body">
+        <p class="title is-5">
+          It's not safe to Unstake
+        </p>
+        <p class="subtitle is-6">
+          Your <strong>rewards</strong> are still in Time Lock. If you unstake now you will loose them.
+          <br>
+          <countdown :time="millisecondsLeft" @end="onCountdownEnd"
+          v-slot="{ days, hours, minutes, seconds, milliseconds }">
+          {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds to safely unstake.
+        </countdown>
+        </p>
+      </div>
+    </div>
+
     <form>
 
       <b-field>
@@ -25,11 +42,12 @@
     <div class="is-flex is-justify-content-center px-6 mt-5">
       <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion">
       Connect Wallet</b-button>
-      <b-button v-else-if="!staked.isZero()" class="mx-6" type="is-success" size="is-medium" @click="unStake" :loading="loading" expanded>
+      <b-button v-else-if="!staked.isZero()" class="mx-6" :type="time.isZero()?'is-success':'is-warning'" size="is-medium" @click="unStake" :loading="loading" expanded>
         Unstake</b-button>
         <b-button v-else class="mx-6" type="is-success" size="is-medium" disabled expanded>
         Nothing to unstake</b-button>
     </div>
+
   </div>
 </template>
 
@@ -43,11 +61,13 @@
       return {
         loading:false,
         constants,
-        amountToUnstake:''
+        amountToUnstake:'',
+        counting: true,
       }
     },
     props:[
-      'staked'
+      'staked',
+      'time'
     ],
     methods:{
       async unStake(){
@@ -105,17 +125,27 @@
           console.log(txReceipt)
 
           if(txReceipt){
-            this.$buefy.toast.open({
-                message: `Transaction Success! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
-                type: 'is-success',
-                duration: 5000
-            })
+            this.$buefy.notification.open({
+                    message: `Transaction Success!<br>
+                    <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank">View on Etherscan <i class="mdi mdi-open-in-new"></i></a>`,
+                    duration: 10000,
+                    progressBar: true,
+                    closable: false,
+                    hasIcon:true,
+                    type: 'is-success',
+                    pauseOnHover: true
+                })
           }else{
-            this.$buefy.toast.open({
-                message: `Transaction Error! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
-                type: 'is-danger',
-                duration: 5000
-            })
+            this.$buefy.notification.open({
+                    message: `Transaction Error!<br>
+                    <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank">View on Etherscan  <i class="mdi mdi-open-in-new"></i></a>`,
+                    duration: 10000,
+                    progressBar: true,
+                    closable: false,
+                    hasIcon:true,
+                    type: 'is-danger',
+                    pauseOnHover: true
+                })
           }
         }
 
@@ -152,6 +182,9 @@
         })
 
       },
+      onCountdownEnd() {
+        this.counting = false
+      }
     },
     computed:{
       ...mapState({
@@ -159,6 +192,9 @@
         chainId: state => state.localStorage.chainId,
         walletVersion: state => state.localStorage.walletVersion
       }),
+      millisecondsLeft(){
+        return this.time.toNumber()*1000
+      }
     }
   }
 

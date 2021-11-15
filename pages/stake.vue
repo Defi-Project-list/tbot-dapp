@@ -9,7 +9,7 @@
                 Maxmize yield by staking TBOT
               </p>
               <p class="subtitle is-6">
-                Stake your TBOT and get yield on TBOT tokens. Read more about our TBOT vault <a href="#">here</a>.
+                Stake your TBOT and get yield on TBOT tokens. Read more about our TBOT vault <a href="https://tbot.fi/introduction-to-staking/" target="_blank">here</a>.
               </p>
             </div>
           </div>
@@ -70,15 +70,15 @@
       <div class="box">
         <b-tabs type="is-toggle" expanded>
           <b-tab-item label="Stake TBOT">
-            <stakeTab/>
+            <stakeTab :staked="staked" :time="timeToUnlock" />
           </b-tab-item>
 
           <b-tab-item label="Unstake">
-            <stakeUnstakeTab :staked="staked"/>
+            <stakeUnstakeTab :staked="staked" :time="timeToUnlock" />
           </b-tab-item>
 
           <b-tab-item label="Rewards">
-            <stakeClaimTab :rewards="rewards"/>
+            <stakeClaimTab :rewards="rewards" :time="timeToUnlock" />
           </b-tab-item>
         </b-tabs>
       </div>
@@ -95,11 +95,12 @@
     data(){
       return {
         provider:null,
-        utils
+        utils,
+        interval: null
       }
     },
     computed:{
-      ...mapState(['balance', 'staked', 'unstaked', 'rewards', 'claimed', 'apy', 'allowance', 'time']),
+      ...mapState(['balance', 'staked', 'unstaked', 'rewards', 'claimed', 'apy', 'allowance', 'time', 'timeToUnlock']),
       ...mapState({
         mainAccount: state => state.localStorage.accounts[state.localStorage.selectedAccount],
         chainId: state => state.localStorage.chainId
@@ -109,16 +110,17 @@
 
     },
     mounted(){
-      setInterval(async () => {
+      this.interval = setInterval(async () => {
         if(this.mainAccount){
           await this.$store.dispatch('getStakingData', this.mainAccount)
         }
-      }, 15000);
+      }, 30000)
+    },
+    beforeDestroy(){
+      clearInterval(this.interval)
     },
     async fetch(){
-      await this.$store.dispatch('checkBalance', this.mainAccount)
       await this.$store.dispatch('getStakingData', this.mainAccount)
-      console.log('Allowance ',this.allowance.toString())
     }
   }
 

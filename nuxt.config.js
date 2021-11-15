@@ -68,6 +68,7 @@ export default {
     '~/plugins/jazzicon.client',
     '~/plugins/ethereum.client',
     '~/plugins/validate.client',
+    '~/plugins/countdown.client',
     '~/plugins/axios'
   ],
 
@@ -157,7 +158,8 @@ export default {
     votingContract: process.env.VOTING_CONTRACT,
     apiUrl: process.env.API_SERVER,
     gerContract: process.env.GER_CONTRACT,
-    stakingContract: process.env.STAKING_CONTRACT
+    stakingContract: process.env.STAKING_CONTRACT,
+    tbotContent:process.env.TBOT_CONTENT
     // googleAnalytics: {
     //   id: process.env.GOOGLE_ANALYTICS_ID
     // }

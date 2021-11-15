@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted(){
-
+    this.$store.dispatch('checkBalance', this.mainAccount)
   },
   created() {
     // Metamask
@@ -157,7 +157,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

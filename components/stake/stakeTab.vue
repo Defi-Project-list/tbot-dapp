@@ -1,6 +1,19 @@
 <template>
   <div>
     <p class="title is-5">Stake TBOT</p>
+
+    <div class="message is-info" v-if="!staked.isZero() && !time.isZero()">
+      <div class="message-body">
+        <p class="title is-5">
+          Beware of Time Lock
+        </p>
+        <p class="subtitle is-6">
+          You already have staked TBOT, if you stake more, your Time Lock will reset. Don't worry, you will not loose your rewards.
+        </p>
+
+      </div>
+    </div>
+
     <form>
 
       <b-field>
@@ -49,6 +62,7 @@
         utils
       }
     },
+    props:['time','staked'],
     computed:{
       ...mapState(['allowance', 'balance']),
       ...mapState({
@@ -121,17 +135,27 @@
           console.log(txReceipt)
 
           if(txReceipt){
-            this.$buefy.toast.open({
-                message: `Transaction Success! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
-                type: 'is-success',
-                duration: 5000
-            })
+            this.$buefy.notification.open({
+                    message: `Transaction Success!<br>
+                    <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank">View on Etherscan <i class="mdi mdi-open-in-new"></i></a>`,
+                    duration: 10000,
+                    progressBar: true,
+                    closable: false,
+                    hasIcon:true,
+                    type: 'is-success',
+                    pauseOnHover: true
+                })
           }else{
-            this.$buefy.toast.open({
-                message: `Transaction Error! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
-                type: 'is-danger',
-                duration: 5000
-            })
+            this.$buefy.notification.open({
+                    message: `Transaction Error!<br>
+                    <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank">View on Etherscan  <i class="mdi mdi-open-in-new"></i></a>`,
+                    duration: 10000,
+                    progressBar: true,
+                    closable: false,
+                    hasIcon:true,
+                    type: 'is-danger',
+                    pauseOnHover: true
+                })
           }
         }
 
@@ -198,17 +222,27 @@
           console.log(txReceipt)
 
           if(txReceipt){
-            this.$buefy.toast.open({
-                message: `Transaction Success! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
-                type: 'is-success',
-                duration: 5000
-            })
+            this.$buefy.notification.open({
+                    message: `Transaction Success!<br>
+                    <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank">View on Etherscan <i class="mdi mdi-open-in-new"></i></a>`,
+                    duration: 10000,
+                    progressBar: true,
+                    closable: false,
+                    hasIcon:true,
+                    type: 'is-success',
+                    pauseOnHover: true
+                })
           }else{
-            this.$buefy.toast.open({
-                message: `Transaction Error! <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank"><i class="mdi mdi-open-in-new"></i></a>`,
-                type: 'is-danger',
-                duration: 5000
-            })
+            this.$buefy.notification.open({
+                    message: `Transaction Error!<br>
+                    <a class="has-text-white" href="https://etherscan.io/tx/${signedTransaction.hash}" target="_blank">View on Etherscan  <i class="mdi mdi-open-in-new"></i></a>`,
+                    duration: 10000,
+                    progressBar: true,
+                    closable: false,
+                    hasIcon:true,
+                    type: 'is-danger',
+                    pauseOnHover: true
+                })
           }
         }
 

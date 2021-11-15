@@ -6,12 +6,12 @@
         <nuxt-link class="button" to="/stake">
             <strong>Stake</strong>
         </nuxt-link>
-        <nuxt-link class="button" to="/vote">
+        <a class="button"  disabled>
             <strong>Vote</strong>
-        </nuxt-link>
-        <nuxt-link class="button" to="/bridge">
+        </a>
+        <a class="button" disabled>
             <strong>Bridge</strong>
-        </nuxt-link>
+        </a>
         <a class="button " href="https://tbotx.io" target="blank">
             <strong>Trade</strong>
             <b-icon icon="open-in-new" size="is-small"></b-icon>
