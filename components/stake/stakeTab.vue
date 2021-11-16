@@ -33,12 +33,12 @@
 
     </form>
 
-    <div class="is-flex is-justify-content-center px-6 mt-5">
-      <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion || !mainAccount">
+    <div class="is-flex is-justify-content-center px-6-desktop mt-5">
+      <b-button class="mx-6-desktop" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion || !mainAccount">
       Connect Wallet</b-button>
-      <b-button class="mx-6" type="is-success" size="is-medium" expanded @click="approve()" v-else-if="allowance.isZero()" :loading="loading">
+      <b-button class="mx-6-desktop" type="is-success" size="is-medium" expanded @click="approve()" v-else-if="allowance.isZero()" :loading="loading">
       Approve</b-button>
-      <b-button class="mx-6" type="is-success" size="is-medium" expanded @click="stake()" :disabled="!hasBalance || amount == ''" v-else :loading="loading">
+      <b-button class="mx-6-desktop" type="is-success" size="is-medium" expanded @click="stake()" :disabled="!hasBalance || amount == ''" v-else :loading="loading">
         <span v-if="amount == ''" >Enter an amount</span>
         <span v-else-if="!hasBalance" >Not enough balance</span>
         <span v-else>Stake</span>

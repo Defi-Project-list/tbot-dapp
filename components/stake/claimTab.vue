@@ -3,23 +3,37 @@
     <p class="title is-5">Claim Rewards</p>
 
     <div class="is-flex is-justify-content-center">
-      <p class="title is-5">
+      <p class="title is-5 has-text-centered">
         Total Rewards: {{ parseFloat(utils.formatEther(rewards)).toLocaleString('en-US', {minimumFractionDigits: 6}) }} TBOT
       </p>
     </div>
 
-    <div class="is-flex is-justify-content-center px-6 mt-5">
-      <b-button v-if="!time.isZero() && !rewards.isZero()" class="mx-6" type="is-success" size="is-medium" disabled expanded>
-       <countdown :time="millisecondsLeft" @end="onCountdownEnd"
+
+
+    <div class="is-flex is-justify-content-center px-6-desktop mt-5">
+      <b-button v-if="!time.isZero() && !rewards.isZero()" class="mx-6-desktop" type="is-success" size="is-medium" disabled expanded>
+       <countdown :time="millisecondsLeft" @end="onCountdownEnd" class="is-hidden-touch"
           v-slot="{ days, hours, minutes, seconds, milliseconds }">
           {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds to Unlock.
         </countdown>
+        <span class="is-hidden-desktop">Locked</span>
        </b-button>
-      <b-button v-else-if="!rewards.isZero()" class="mx-6" type="is-success" size="is-medium" :loading="loading" @click="claimRewards" expanded>
+      <b-button v-else-if="!rewards.isZero()" class="mx-6-desktop" type="is-success" size="is-medium" :loading="loading" @click="claimRewards" expanded>
         Claim Rewards</b-button>
-        <b-button v-else class="mx-6" type="is-success" size="is-medium" disabled expanded>
+        <b-button v-else class="mx-6-desktop" type="is-success" size="is-medium" disabled expanded>
         No claimable rewards</b-button>
     </div>
+
+    <div class="is-flex is-justify-content-center is-hidden-desktop mt-3">
+      <p class="title is-5 has-text-centered">
+        <countdown :time="millisecondsLeft" @end="onCountdownEnd"
+          v-slot="{ days, hours, minutes, seconds, milliseconds }">
+          {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds to Unlock.
+        </countdown>
+      </p>
+    </div>
+
+
     <!-- <div class="is-flex is-justify-content-center px-6 mt-2">
       <b-button class="mx-6" type="is-primary" size="is-medium" expanded>
         Vest Rewards</b-button>

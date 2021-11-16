@@ -3,20 +3,20 @@
     <p class="title is-5">
       Start with TBOT
     </p>
-    <div class="is-flex mb-5">
-      <b-button size="is-medium" tag="a" href="https://tbot.fi" class="mr-3">
+    <div class="is-flex mb-5 is-flex-wrap-wrap">
+      <b-button size="is-medium" tag="a" href="https://tbot.fi" class="mr-3 mb-3-mobile" :expanded="!$device.isDesktopOrTablet">
       <div class="is-flex is-align-items-center">
-        <img class="mr-2" width="20px" height="20px" src="~/assets/images/tbot.png" alt="View on Etherscan">
+        <img class="mr-2" width="20px" height="20px" src="~/assets/images/tbot.png" alt="Go to tbot.fi">
         Homepage
       </div>
     </b-button>
-      <b-button size="is-medium" @click="addToMetamask" v-if="$eth" class="mr-3">
+      <b-button size="is-medium" @click="addToMetamask" v-if="$eth" class="mr-3 mb-3-mobile" :expanded="!$device.isDesktopOrTablet">
       <div class="is-flex is-align-items-center">
         <img class="mr-2" width="20px" height="20px" src="~/assets/images/metamask.png" alt="Add to Metamask">
         Add to Metamask
       </div>
     </b-button>
-    <b-button size="is-medium" tag="a" href="https://etherscan.io/token/0xa4f2fdb0a5842d62bbaa5b903f09687b85e4bf59" target="_blank" class="mr-3">
+    <b-button size="is-medium" tag="a" href="https://etherscan.io/token/0xa4f2fdb0a5842d62bbaa5b903f09687b85e4bf59" target="_blank" class="mr-3" :expanded="!$device.isDesktopOrTablet">
       <div class="is-flex is-align-items-center">
         <img class="mr-2" width="20px" height="20px" src="~/assets/images/etherscan-logo.png" alt="View on Etherscan">
         View on Etherscan

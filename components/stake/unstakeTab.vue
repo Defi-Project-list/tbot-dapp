@@ -39,10 +39,10 @@
 
     </form>
 
-    <div class="is-flex is-justify-content-center px-6 mt-5">
-      <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion">
+    <div class="is-flex is-justify-content-center px-6-desktop mt-5">
+      <b-button class="mx-6-desktop" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion">
       Connect Wallet</b-button>
-      <b-button v-else-if="!staked.isZero()" class="mx-6" :type="time.isZero()?'is-success':'is-warning'" size="is-medium"
+      <b-button v-else-if="!staked.isZero()" class="mx-6-desktop" :type="time.isZero()?'is-success':'is-warning'" size="is-medium"
       @click="unStake"
       :loading="loading"
       expanded
@@ -51,7 +51,7 @@
         <span v-else-if="utils.parseEther(amountToUnstake).gt(staked)">Not enough balance</span>
         <span v-else>Unstake</span>
         </b-button>
-        <b-button v-else class="mx-6" type="is-success" size="is-medium" disabled expanded>
+        <b-button v-else class="mx-6-desktop" type="is-success" size="is-medium" disabled expanded>
         Nothing to unstake</b-button>
     </div>
 
