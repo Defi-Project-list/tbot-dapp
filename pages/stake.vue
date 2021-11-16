@@ -26,7 +26,7 @@
           <div class="message is-info">
             <div class="message-body">
               <p class="title is-5">{{time}} Days</p>
-              <p class="subtitle is-6">Timelock</p>
+              <p class="subtitle is-6">Minimum Stake Time</p>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
       <div class="columns">
         <div class="column">
           <div class="box">
-            <p class="title is-5">TBOT Balance</p>
+            <p class="title is-5">Balance</p>
             <div class="subtitle is-flex">
               <img src="~/assets/images/tbot-token.png" width="24px" height="24px" alt="Balance">
               <p class="ml-2">
@@ -45,7 +45,7 @@
         </div>
         <div class="column">
           <div class="box">
-            <p class="title is-5">TBOT Staked</p>
+            <p class="title is-5">Staked</p>
             <div class="subtitle is-flex">
               <img src="~/assets/images/tbot-token.png" width="24px" height="24px" alt="Staked">
               <p class="ml-2">
@@ -56,7 +56,7 @@
         </div>
         <div class="column">
           <div class="box">
-            <p class="title is-5">TBOT Claimed</p>
+            <p class="title is-5">Claimed</p>
             <div class="subtitle is-flex">
               <img src="~/assets/images/tbot-token.png" width="24px" height="24px" alt="Rewards">
               <p class="ml-2">

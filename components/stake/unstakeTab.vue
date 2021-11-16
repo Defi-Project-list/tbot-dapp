@@ -5,10 +5,10 @@
     <div class="message is-warning" v-if="!staked.isZero() && !time.isZero()">
       <div class="message-body">
         <p class="title is-5">
-          It's not safe to Unstake
+          WARNING. It's not safe to Unstake
         </p>
         <p class="subtitle is-6">
-          Your <strong>rewards</strong> are still in Time Lock. If you unstake now you will loose them.
+          Your <strong>rewards</strong> are still in Time Lock. If you unstake now you will <strong>lose</strong> them.
           <br>
           <countdown :time="millisecondsLeft" @end="onCountdownEnd"
           v-slot="{ days, hours, minutes, seconds, milliseconds }">
@@ -27,12 +27,12 @@
           type="text"
           expanded
           v-model="amountToUnstake"
-          :disabled="loading || !walletVersion"
+          :disabled="loading || !walletVersion || staked.isZero()"
           @keypress.native="isNumber"
            />
 
         <p class="control">
-          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading || !walletVersion" />
+          <b-button type="is-primary" label="MAX" @click="setMax" :disabled="loading || !walletVersion || staked.isZero()" />
         </p>
 
       </b-field>
@@ -42,8 +42,15 @@
     <div class="is-flex is-justify-content-center px-6 mt-5">
       <b-button class="mx-6" type="is-primary is-light" size="is-medium" expanded @click="connectWallet" v-if="!walletVersion">
       Connect Wallet</b-button>
-      <b-button v-else-if="!staked.isZero()" class="mx-6" :type="time.isZero()?'is-success':'is-warning'" size="is-medium" @click="unStake" :loading="loading" expanded>
-        Unstake</b-button>
+      <b-button v-else-if="!staked.isZero()" class="mx-6" :type="time.isZero()?'is-success':'is-warning'" size="is-medium"
+      @click="unStake"
+      :loading="loading"
+      expanded
+      :disabled="amountToUnstake == '' || utils.parseEther(amountToUnstake).gt(staked)">
+        <span v-if="amountToUnstake == ''" >Enter an amount</span>
+        <span v-else-if="utils.parseEther(amountToUnstake).gt(staked)">Not enough balance</span>
+        <span v-else>Unstake</span>
+        </b-button>
         <b-button v-else class="mx-6" type="is-success" size="is-medium" disabled expanded>
         Nothing to unstake</b-button>
     </div>
@@ -61,6 +68,7 @@
       return {
         loading:false,
         constants,
+        utils,
         amountToUnstake:'',
         counting: true,
       }

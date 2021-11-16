@@ -8,7 +8,7 @@
           Beware of Time Lock
         </p>
         <p class="subtitle is-6">
-          You already have staked TBOT, if you stake more, your Time Lock will reset. Don't worry, you will not loose your rewards.
+          You already have staked TBOT, if you stake more, your Time Lock will reset. Don't worry, you will not lose your rewards.
         </p>
 
       </div>
