@@ -161,7 +161,8 @@ export default {
     tbotContent:process.env.TBOT_CONTENT,
     googleAnalytics: {
       id: process.env.GOOGLE_ANALYTICS_ID
-    }
+    },
+    airdropContract:process.env.AIRDROP_CONTRACT
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

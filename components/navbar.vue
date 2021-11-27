@@ -59,16 +59,16 @@
               </a>
             </b-dropdown-item>
 
-            <!-- <b-dropdown-item has-link>
-              <nuxt-link to="/my-account">
+            <b-dropdown-item has-link>
+              <nuxt-link to="/airdrops">
               <div class="is-flex is-align-items-center is-justify-content-space-between">
                 <span>
-                  Notifications
+                  Promo Rewards
                 </span>
-                <b-icon icon="bell" size="is-small"></b-icon>
+                <b-icon icon="sale" size="is-small"></b-icon>
               </div>
               </nuxt-link>
-            </b-dropdown-item> -->
+            </b-dropdown-item>
 
             <!-- <b-dropdown-item >
               <div class="is-flex is-align-items-center is-justify-content-space-between">

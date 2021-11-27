@@ -14,14 +14,14 @@
       </div>
       <div class="is-flex is-flex-direction-column mt-2">
 
-        <!-- <b-button size="is-medium" expanded v-if="hasMetamask && $device.isSafari && $device.isIos" tag="a" href="https://metamask.app.link/dapp/app.tbot.fi">
+        <b-button size="is-medium" expanded v-if="hasMetamask && $device.isSafari && $device.isIos" tag="a" href="https://metamask.app.link/dapp/app.tbot.fi">
           <div class="is-flex is-align-items-center">
             <img class="mr-2" width="20px" height="20px" src="~/assets/images/metamask.png" alt="Metamask">
             <strong>Open in Metamask</strong>
           </div>
-        </b-button> -->
+        </b-button>
 
-        <b-button size="is-medium" expanded v-if="hasMetamask" @click="connectMetamask">
+        <b-button size="is-medium" expanded v-else-if="hasMetamask" @click="connectMetamask">
           <div class="is-flex is-align-items-center">
             <img class="mr-2" width="20px" height="20px" src="~/assets/images/metamask.png" alt="Metamask">
             <strong>Metamask</strong>

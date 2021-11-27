@@ -1,7 +1,8 @@
 import WalletConnectProvider from "@walletconnect/web3-provider"
+import detectEthereumProvider from '@metamask/detect-provider'
 import WalletLink from "walletlink"
 
-export default ({ $config }, inject) => {
+export default async ({ $config }, inject) => {
 
   const WalletConnectConnector = new WalletConnectProvider({
     infuraId: $config.infuraId
@@ -17,7 +18,7 @@ export default ({ $config }, inject) => {
     `https://mainnet.infura.io/v3/${$config.infuraId}`, 1
   )
 
-  const ethereum = window.ethereum
+  const ethereum = await detectEthereumProvider()
 
   inject('connector', WalletConnectConnector)
   inject('walletlink', walletLinkProvider)

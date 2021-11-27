@@ -33,7 +33,7 @@
           <div class="message">
             <div class="message-body">
               <p class="title is-5">
-                5,310
+                5,295
               </p>
               <p class="subtitle is-6">
                 Holders
@@ -45,10 +45,10 @@
           <div class="message">
             <div class="message-body">
               <p class="title is-5">
-                13,055
+                {{tbotPrice}}
               </p>
               <p class="subtitle is-6">
-                Transfers
+                TBOT ETH Price
               </p>
             </div>
           </div>
@@ -114,7 +114,8 @@ export default {
     return {
       loading:false,
       posts:[],
-      ethPrice:'-'
+      ethPrice:'-',
+      tbotPrice:'-'
       }
   },
   async fetch(){
@@ -129,6 +130,14 @@ export default {
       }else{
         this.ethPrice = 'unavailable'
       }
+
+    const tbotxResponse = await this.$axios.get('https://api.tbotx.io/v2/ticker?symbol=tbot-eth')
+    console.log(tbotxResponse)
+    if(tbotxResponse){
+      this.tbotPrice = tbotxResponse.data.last + ' ETH'
+    }else{
+      this.tbotPrice = 'unavailable'
+    }
     this.loading = false
   },
   methods:{

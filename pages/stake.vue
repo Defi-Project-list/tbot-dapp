@@ -18,7 +18,7 @@
           <div class="message is-info">
             <div class="message-body">
               <p class="title is-5">{{apy}}%</p>
-              <p class="subtitle is-6">APY</p>
+              <p class="subtitle is-6">APR</p>
             </div>
           </div>
         </div>
