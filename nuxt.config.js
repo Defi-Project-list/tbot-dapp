@@ -154,7 +154,7 @@ export default {
   publicRuntimeConfig: {
     infuraId: process.env.INFURA_ID,
     idoContract: process.env.IDO_CONTRACT,
-    tbotContract: process.env.GER_CONTRACT,
+    tbotContract: process.env.TBOT_CONTRACT,
     votingContract: process.env.VOTING_CONTRACT,
     apiUrl: process.env.API_SERVER,
     stakingContract: process.env.STAKING_CONTRACT,
