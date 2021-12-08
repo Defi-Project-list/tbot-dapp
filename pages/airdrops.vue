@@ -173,7 +173,7 @@
         if(this.mainAccount){
           await this.getBalance()
         }
-      }, 30000)
+      }, 120000)
     },
     beforeDestroy(){
       clearInterval(this.interval)

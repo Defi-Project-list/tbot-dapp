@@ -161,6 +161,7 @@
 
         // Update Balance and staking information
         await this.$store.dispatch('checkBalance', this.mainAccount)
+        await this.$store.dispatch('checkAllowance', {wallet:this.mainAccount, contract:this.$config.stakingContract})
         await this.$store.dispatch('getStakingData', this.mainAccount)
 
         this.amount = ''

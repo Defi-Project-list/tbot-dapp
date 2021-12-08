@@ -113,14 +113,16 @@
       this.interval = setInterval(async () => {
         if(this.mainAccount){
           await this.$store.dispatch('getStakingData', this.mainAccount)
+          await this.$store.dispatch('checkAllowance', {wallet:this.mainAccount, contract:this.$config.stakingContract})
         }
-      }, 30000)
+      }, 120000)
     },
     beforeDestroy(){
       clearInterval(this.interval)
     },
     async fetch(){
       await this.$store.dispatch('getStakingData', this.mainAccount)
+      await this.$store.dispatch('checkAllowance', {wallet:this.mainAccount, contract:this.$config.stakingContract})
     }
   }
 

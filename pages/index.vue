@@ -33,7 +33,7 @@
           <div class="message">
             <div class="message-body">
               <p class="title is-5">
-                5,295
+                5,301
               </p>
               <p class="subtitle is-6">
                 Holders

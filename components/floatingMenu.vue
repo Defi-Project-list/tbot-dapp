@@ -6,6 +6,10 @@
         <nuxt-link class="button" to="/stake">
             <strong>Stake</strong>
         </nuxt-link>
+        <nuxt-link class="button" to="/gifts">
+            <strong>Gift</strong>
+            <b-icon icon="gift" size="is-small"></b-icon>
+        </nuxt-link>
         <!-- <b-tooltip label="Coming Soon"
             position="is-right">
             <a class="button"  disabled>

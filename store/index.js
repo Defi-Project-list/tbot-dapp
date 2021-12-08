@@ -61,15 +61,12 @@ export const actions = {
 
     if(provider && wallet){
       const token = this.$config.tbotContract
-      const staking = this.$config.stakingContract
       const tokenAbi = require('../assets/data/abi/IERC20.json')
       const tokenContract = new Contract(token, tokenAbi, provider)
 
       try {
         const amount = await tokenContract.balanceOf(wallet)
         commit('set',['balance', amount])
-        const allowance = await tokenContract.allowance(wallet, staking)
-        commit('set',['allowance', allowance])
 
       } catch (error) {
         console.log(error)
@@ -77,6 +74,35 @@ export const actions = {
       }
     }else{
       commit('set',['balance',constants.Zero])
+    }
+  },
+  async checkAllowance({commit, state, dispatch}, params){
+    let provider
+    if (state.localStorage.walletVersion == 'metamask') {
+      provider = new providers.Web3Provider(this.$eth)
+    } else if (state.localStorage.walletVersion == 'walletConnect') {
+      provider = new providers.Web3Provider(this.$connector)
+    }else if (state.localStorage.walletVersion == 'walletLink'){
+      provider = new providers.Web3Provider(this.$walletlink)
+    }else{
+      provider = null
+    }
+
+    if(provider && params.wallet){
+      const token = this.$config.tbotContract
+      const tokenAbi = require('../assets/data/abi/IERC20.json')
+      const tokenContract = new Contract(token, tokenAbi, provider)
+
+      try {
+
+        const allowance = await tokenContract.allowance(params.wallet, params.contract)
+        commit('set',['allowance', allowance])
+
+      } catch (error) {
+        console.log(error)
+        dispatch('clearAllowance')
+      }
+    }else{
       commit('set',['allowance',constants.Zero])
     }
   },
@@ -135,6 +161,8 @@ export const actions = {
   },
   clearBalance({commit}){
     commit('set',['balance',constants.Zero])
+  },
+  clearAllowance({commit}){
     commit('set',['allowance',constants.Zero])
   }
 }

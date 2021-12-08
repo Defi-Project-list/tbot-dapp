@@ -154,7 +154,7 @@ export default {
   publicRuntimeConfig: {
     infuraId: process.env.INFURA_ID,
     idoContract: process.env.IDO_CONTRACT,
-    tbotContract: process.env.TBOT_CONTRACT,
+    tbotContract: process.env.GER_CONTRACT,
     votingContract: process.env.VOTING_CONTRACT,
     apiUrl: process.env.API_SERVER,
     stakingContract: process.env.STAKING_CONTRACT,
@@ -162,7 +162,8 @@ export default {
     googleAnalytics: {
       id: process.env.GOOGLE_ANALYTICS_ID
     },
-    airdropContract:process.env.AIRDROP_CONTRACT
+    airdropContract:process.env.AIRDROP_CONTRACT,
+    giftsContract:process.env.GIFTS_CONTRACT
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
