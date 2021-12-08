@@ -65,9 +65,7 @@ export const actions = {
       const tokenContract = new Contract(token, tokenAbi, provider)
 
       try {
-        console.log('Balance of',wallet)
         const amount = await tokenContract.balanceOf(wallet)
-        console.log(amount)
         commit('set',['balance', amount])
 
       } catch (error) {
@@ -96,9 +94,7 @@ export const actions = {
       const tokenContract = new Contract(token, tokenAbi, provider)
 
       try {
-        console.log('Allowance of',params)
         const allowance = await tokenContract.allowance(params.wallet, params.contract)
-        console.log(allowance)
         commit('set',['allowance', allowance])
 
       } catch (error) {
