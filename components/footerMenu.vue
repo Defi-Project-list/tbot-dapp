@@ -1,5 +1,5 @@
 <template>
-  <b-navbar fixed-bottom :mobile-burger="false" centered>
+  <b-navbar fixed-bottom :mobile-burger="false" centered :class="$device.isAndroid?'mb-5':''">
     <template #start>
       <floatingMenu />
     </template>
