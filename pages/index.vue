@@ -75,7 +75,7 @@
           <div class="card">
                 <div class="card-content">
                     <div class="content">
-                        <p class="title is-6"><b-skeleton  :active="loading"></b-skeleton></p>
+                        <p class="title is-6"><b-skeleton :active="loading"></b-skeleton></p>
                         <p>
                           <b-skeleton size="is-large" :active="loading"></b-skeleton>
                         </p>
@@ -83,6 +83,13 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="columns" v-else-if="posts.length == 0">
+      <div class="column">
+        <p class="has-text-centered">
+          Nothing here yet.
+        </p>
+      </div>
     </div>
       <div class="columns" v-else>
         <div class="column" v-for="post in 3" :key="post">
@@ -121,9 +128,11 @@ export default {
   async fetch(){
     this.loading = true
     const {data} = await this.$axios.get(`https://tbot.fi/ghost/api/v4/content/posts/?key=${this.$config.tbotContent}`)
-    data.posts.forEach(element => {
-      this.posts.push(element)
-    })
+    if(data){
+      data.posts.forEach(element => {
+        this.posts.push(element)
+      })
+    }
     const response = await this.$axios.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
       if(response){
         this.ethPrice = response.data.USD.toLocaleString('en-US',{style:'currency',currency:'USD'})
