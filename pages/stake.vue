@@ -70,11 +70,11 @@
       <div class="box">
         <b-tabs type="is-toggle" expanded>
           <b-tab-item label="Stake TBOT">
-            <stakeTab :staked="staked" :time="timeToUnlock" />
+            <stakeTab :staked="staked" :rewards="rewards" :time="timeToUnlock" />
           </b-tab-item>
 
           <b-tab-item label="Unstake">
-            <stakeUnstakeTab :staked="staked" :time="timeToUnlock" />
+            <stakeUnstakeTab :staked="staked" :rewards="rewards" :time="timeToUnlock" />
           </b-tab-item>
 
           <b-tab-item label="Rewards">

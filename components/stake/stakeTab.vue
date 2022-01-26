@@ -62,7 +62,7 @@
         utils
       }
     },
-    props:['time','staked'],
+    props:['time','staked','rewards'],
     computed:{
       ...mapState(['allowance', 'balance']),
       ...mapState({

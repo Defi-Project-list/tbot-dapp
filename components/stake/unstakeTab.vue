@@ -11,7 +11,7 @@
           Your <strong>rewards</strong> are still in Time Lock. If you unstake now you will <strong>lose</strong> them.
           <br>
           <countdown :time="millisecondsLeft" @end="onCountdownEnd"
-          v-slot="{ days, hours, minutes, seconds, milliseconds }">
+          v-slot="{ days, hours, minutes, seconds }">
           {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds to safely unstake.
         </countdown>
         </p>
@@ -75,11 +75,27 @@
     },
     props:[
       'staked',
-      'time'
+      'time', 
+      'rewards'
     ],
     methods:{
       async unStake(){
         this.loading = true
+
+        if(!this.rewards.isZero()){
+          this.$buefy.dialog.alert({
+                    title: 'Error',
+                    message: 'You have pending rewards to claim, please claim before unstaking, otherwise your rewards will be timelocked again.',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    icon: 'times-circle',
+                    iconPack: 'fa',
+                    ariaRole: 'alertdialog',
+                    ariaModal: true
+                })
+          this.loading = false
+          return
+        }
 
         let provider
         if (this.walletVersion == 'metamask') {

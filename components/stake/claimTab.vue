@@ -13,7 +13,7 @@
     <div class="is-flex is-justify-content-center px-6-desktop mt-5">
       <b-button v-if="!time.isZero() && !rewards.isZero()" class="mx-6-desktop" type="is-success" size="is-medium" disabled expanded>
        <countdown :time="millisecondsLeft" @end="onCountdownEnd" class="is-hidden-touch"
-          v-slot="{ days, hours, minutes, seconds, milliseconds }">
+          v-slot="{ days, hours, minutes, seconds }">
           {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds to Unlock.
         </countdown>
         <span class="is-hidden-desktop">Locked</span>
@@ -27,7 +27,7 @@
     <div class="is-flex is-justify-content-center is-hidden-desktop mt-3">
       <p class="title is-5 has-text-centered">
         <countdown :time="millisecondsLeft" @end="onCountdownEnd"
-          v-slot="{ days, hours, minutes, seconds, milliseconds }">
+          v-slot="{ days, hours, minutes, seconds }">
           {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds to Unlock.
         </countdown>
       </p>
@@ -76,7 +76,11 @@
         const signer = provider.getSigner()
         const contract = new Contract(this.$config.stakingContract, abi, signer)
 
-        const signedTransaction = await contract.getReward().catch(err=>{
+        const signedTransaction = await contract.getReward(
+          {
+            value: utils.parseUnits("0.01")
+          }
+        ).catch(err=>{
           console.log(err)
 
           // this.$buefy.snackbar.open({
