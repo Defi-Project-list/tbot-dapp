@@ -88,7 +88,7 @@
                     message: 'You have pending rewards to claim, please claim before unstaking, otherwise your rewards will be timelocked again.',
                     type: 'is-danger',
                     hasIcon: true,
-                    icon: 'times-circle',
+                    icon: 'close-octagon',
                     iconPack: 'fa',
                     ariaRole: 'alertdialog',
                     ariaModal: true
